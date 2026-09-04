@@ -12,3 +12,6 @@ playwright-report/
 test-results/
 output/
 .DS_Store
+# Allure reports
+allure-results/
+allure-report/
