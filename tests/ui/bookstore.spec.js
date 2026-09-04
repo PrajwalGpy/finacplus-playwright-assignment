@@ -1,5 +1,5 @@
-import { LoginPage } from "./pages/login.page";
-import { BookStorePage } from "./pages/bookstore.page";
+import { LoginPage } from "../../pages/login.page";
+import { BookStorePage } from "../../pages/bookstore.page";
 import { test, expect } from "@playwright/test";
 
 const fs = require("fs");
