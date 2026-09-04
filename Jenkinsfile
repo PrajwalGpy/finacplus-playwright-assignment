@@ -30,9 +30,8 @@ pipeline {
 
         stage('Install Playwright Browsers') {
             steps {
-                echo 'Installing Playwright browser binaries and system dependencies...'
-                // Install browser binaries and OS dependencies required for headless browser execution
-                sh 'npx playwright install --with-deps'
+                echo 'Installing Playwright browsers...'
+                sh 'npx playwright install'
             }
         }
 
