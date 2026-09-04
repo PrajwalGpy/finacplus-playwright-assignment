@@ -8,9 +8,9 @@ pipeline {
        
         BASE_URL="https://demoqa.com"
         API_URL="https://reqres.in"
-        USERNAME="prajwalgp11"
-        PASSWORD="Password@11"
-        REQRES_API_KEY = "free_user_3IrKfgNM0B5WbZ4KnTxug4Fhj8T"
+        USERNAME = credentials('demoqa-username')
+        PASSWORD = credentials('demoqa-password')
+        REQRES_API_KEY = credentials('reqres-api-key')
     }
 
     options {
