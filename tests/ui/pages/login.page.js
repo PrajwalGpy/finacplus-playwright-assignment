@@ -1,11 +1,11 @@
-class LoginPage{
+export class LoginPage{
     constructor(page){
         this.page = page
 
         this.usernameInput = page.getByPlaceholder("UserName")
         this.passwordInput = page.getByPlaceholder("Password")
         this.loginButton = page.getByRole('button',{name:'Login'})
-        this.logoutButton = page.getByRole('Button',{name:'Logout'})
+        this.logoutButton = page.getByRole('button',{name:'Logout'})
     }
 
     async goto(){
@@ -17,4 +17,9 @@ class LoginPage{
         await this.passwordInput.fill(password)
         await this.loginButton.click()
     }
+
+    async logout(){
+        await this.logoutButton.click()
+    }
 }
+
