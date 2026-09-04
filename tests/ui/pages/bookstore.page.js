@@ -1,4 +1,6 @@
-class BookStorePage {
+import { title } from "node:process";
+
+export class BookStorePage {
   constructor(page) {
     this.page = page;
 
@@ -10,5 +12,18 @@ class BookStorePage {
   }
   async openBookStore(){
     await this.bookStoreButton.click();
+  }
+
+  async searchBook(bookName){
+    await this.searchBox.fill(bookName)
+  }
+
+  async getBookDetails(){
+    return{
+        title : await this.bookRows.locator("td").nth(1).textContent(),
+        author : await this.bookRows.locator("td").nth(2).textContent(),
+        publisher : await this.bookRows.locator("td").nth(3).textContent()
+
+    }
   }
 }
