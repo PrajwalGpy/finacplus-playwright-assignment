@@ -60,45 +60,51 @@ pipeline {
     }
 
     post {
-        always {
-            echo 'Archiving build artifacts and reports...'
-            // Built-in Jenkins artifact archiving
-            archiveArtifacts artifacts: 'playwright-report/**, allure-results/**, allure-report/**, test-results/**', allowEmptyArchive: true
+    always {
+        echo 'Archiving build artifacts and reports...'
 
-            script {
-                // Publish Playwright HTML Report (requires HTML Publisher Plugin)
-                try {
-                    publishHTML([
-                        allowMissing: true,
-                        alwaysLinkToLastBuild: true,
-                        keepAll: true,
-                        reportDir: 'playwright-report',
-                        reportFiles: 'index.html',
-                        reportName: 'Playwright Test Report'
-                    ])
-                } catch (Exception e) {
-                    echo "HTML Publisher plugin step skipped or not available: ${e.message}"
-                }
+        archiveArtifacts(
+            artifacts: 'playwright-report/**, allure-results/**, allure-report/**, test-results/**',
+            allowEmptyArchive: true
+        )
 
-                // Publish Allure Report (requires Allure Jenkins Plugin)
-                try {
-                    allure([
-                        includeProperties: false,
-                        jdk: '',
-                        properties: [],
-                        reportBuildPolicy: 'ALWAYS',
-                        results: [[path: 'allure-results']]
-                    ])
-                } catch (Exception e) {
-                    echo "Allure Jenkins plugin step skipped or not available: ${e.message}"
-                }
+        script {
+            // Publish Playwright HTML Report
+            try {
+                publishHTML([
+                    allowMissing: true,
+                    alwaysLinkToLastBuild: true,
+                    keepAll: true,
+                    reportDir: 'playwright-report',
+                    reportFiles: 'index.html',
+                    reportName: 'Playwright Test Report'
+                ])
+            } catch (Exception e) {
+                echo "Playwright HTML report skipped: ${e.message}"
+            }
+
+            // Publish Allure HTML Report
+            try {
+                publishHTML([
+                    allowMissing: true,
+                    alwaysLinkToLastBuild: true,
+                    keepAll: true,
+                    reportDir: 'allure-report',
+                    reportFiles: 'index.html',
+                    reportName: 'Allure Report'
+                ])
+            } catch (Exception e) {
+                echo "Allure HTML report skipped: ${e.message}"
             }
         }
-        success {
-            echo '✅ Pipeline execution completed successfully!'
-        }
-        failure {
-            echo '❌ Pipeline execution failed. Please inspect test results and logs.'
-        }
     }
+
+    success {
+        echo '✅ Pipeline execution completed successfully!'
+    }
+
+    failure {
+        echo '❌ Pipeline execution failed. Please inspect test results and logs.'
+    }
+}
 }
