@@ -2,44 +2,55 @@ import { LoginPage } from "./pages/login.page";
 import { BookStorePage } from "./pages/bookstore.page";
 import { test, expect } from "@playwright/test";
 
+const fs = require("fs");
+const path = require("path");
 
-const USERNAME = "prajwalgp11"
-const PASSWORD = "Password@11"
+const USERNAME = "prajwalgp11";
+const PASSWORD = "Password@11";
 
-test('Login test',async({page})=>{
-    const loginPage = new LoginPage(page);
-    const bookStorePage = new BookStorePage(page)
+test("Login test", async ({ page }) => {
+  const loginPage = new LoginPage(page);
+  const bookStorePage = new BookStorePage(page);
 
-    await loginPage.goto()
+  function writeOutput(fileName, content) {
+    const outPath = path.join(__dirname, "../../output", fileName);
+    fs.writeFileSync(outPath, content, "utf8");
+  }
 
-    await loginPage.login(USERNAME,PASSWORD)
+  await loginPage.goto();
 
-    await expect(page.getByText(USERNAME)).toBeVisible()
+  await loginPage.login(USERNAME, PASSWORD);
 
-    await expect(loginPage.logoutButton).toBeVisible()
+  await expect(page.getByText(USERNAME)).toBeVisible();
 
-    await bookStorePage.openBookStore()
+  await expect(loginPage.logoutButton).toBeVisible();
 
-    await expect(page).toHaveURL(/books/)
+  await bookStorePage.openBookStore();
 
-    const bookName = 'Learning JavaScript Design Patterns';
-    await bookStorePage.searchBook(bookName)
+  await expect(page).toHaveURL(/books/);
 
-    const bookLink = page.getByRole("link", {
+  const bookName = "Learning JavaScript Design Patterns";
+  await bookStorePage.searchBook(bookName);
+
+  const bookLink = page.getByRole("link", {
     name: "Learning JavaScript Design Patterns",
     exact: true,
   });
 
   await expect(bookLink).toBeVisible();
 
+  const bookDetails = await bookStorePage.getBookDetails();
 
-    const bookDetails = await bookStorePage.getBookDetails()
+  console.log("Book Details:");
+  console.log(`Title: ${bookDetails.title}`);
+  console.log(`Author: ${bookDetails.author}`);
+  console.log(`Publisher: ${bookDetails.publisher}`);
 
-    console.log('Book Details:');
-    console.log(`Title: ${bookDetails.title}`);
-    console.log(`Author: ${bookDetails.author}`);
-    console.log(`Publisher: ${bookDetails.publisher}`);
+  const output = `
+Title: ${bookDetails.title}
+Author: ${bookDetails.author}
+Publisher: ${bookDetails.publisher}
+`;
+  writeOutput('book-details.txt',output)
 
-
-})
-
+});
