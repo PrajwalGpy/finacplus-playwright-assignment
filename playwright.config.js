@@ -59,10 +59,10 @@ export default defineConfig({
     },
 
     // Firefox can be enabled later
-    // {
-    //   name: 'firefox',
-    //   use: { ...devices['Desktop Firefox'] },
-    // },
+    {
+      name: 'firefox',
+      use: { ...devices['Desktop Firefox'] },
+    },
 
     // WebKit can be enabled later
     // {
