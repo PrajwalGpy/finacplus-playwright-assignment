@@ -5,7 +5,7 @@ export class LoginPage{
         this.usernameInput = page.getByPlaceholder("UserName")
         this.passwordInput = page.getByPlaceholder("Password")
         this.loginButton = page.getByRole('button',{name:'Login'})
-        this.logoutButton = page.getByRole('button',{name:'Logout'})
+        this.logoutButton = page.locator('#submit').first()
     }
 
     async goto(){

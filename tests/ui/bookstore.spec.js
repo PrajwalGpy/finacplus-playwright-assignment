@@ -15,6 +15,7 @@ test("Login test", async ({ page }) => {
   function writeOutput(fileName, content) {
     const outPath = path.join(__dirname, "../../output", fileName);
     fs.writeFileSync(outPath, content, "utf8");
+    return outPath
   }
 
   await loginPage.goto();
@@ -51,5 +52,11 @@ Title: ${bookDetails.title}
 Author: ${bookDetails.author}
 Publisher: ${bookDetails.publisher}
 `;
-  writeOutput("book-details.txt", output);
+  const outputFile = writeOutput("book-details.txt", output);
+
+  await loginPage.logout()
+
+  await expect(page).toHaveURL(/login/)
+
+  console.log(`Book details saved to: ${outputFile}`);
 });

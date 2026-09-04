@@ -1,4 +1,4 @@
 
-Title: You Don't Know JS
-Author: Kyle Simpson
+Title: Learning JavaScript Design Patterns
+Author: Addy Osmani
 Publisher: O'Reilly Media
