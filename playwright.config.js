@@ -1,5 +1,11 @@
 // @ts-check
 import { defineConfig, devices } from '@playwright/test';
+import dotenv from 'dotenv';
+import path from 'path';
+
+// Read from .env file, or dynamically switch using ENV process variable
+const ENV = process.env.ENV || '';
+dotenv.config({ path: path.resolve(__dirname, ENV ? `.env.${ENV}` : '.env') });
 
 /**
  * Read environment variables from file.
