@@ -33,7 +33,9 @@ test.describe("Reqres User API", () => {
   });
 
   test("Get user details", async () => {
-    // Get user
+
+    // I tried using the new user ID as mentioned in the project description, but the API isn't accepting it. So for now, I'm using an existing user ID to retrieve and update the user details.
+
     const userId = 2;
     const response = await userApi.getUser(userId);
     console.log("Get User Status:", response.status());

@@ -6,7 +6,7 @@ const fs = require("fs");
 const path = require("path");
 
 
-test("Login test", async ({ page }) => {
+test("Login, search book, save book details and logout", async ({ page }) => {
   const loginPage = new LoginPage(page);
   const bookStorePage = new BookStorePage(page);
 
