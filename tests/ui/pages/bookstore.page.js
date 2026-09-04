@@ -1,13 +1,15 @@
 import { title } from "node:process";
 
-export class BookStorePage {
+export class BookStorePage { 
+    bookName = 'Learning JavaScript Design Patterns';
+
   constructor(page) {
     this.page = page;
 
-    this.bookStoreButton = page.getByRole("link", { name: "Book Store" });
+    this.bookStoreButton = page.getByRole("link", { name: "Book Store" ,exact: true});
     this.searchBox = page.getByPlaceholder("Type to search");
     this.bookRows = page.locator("tr").filter({
-      has: bookName,
+      hasText: this.bookName,
     });
   }
   async openBookStore(){
