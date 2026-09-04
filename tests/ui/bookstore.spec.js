@@ -33,7 +33,7 @@ test("Login test", async ({ page }) => {
   await bookStorePage.searchBook(bookName);
 
   const bookLink = page.getByRole("link", {
-    name: "Learning JavaScript Design Patterns",
+    name: bookName,
     exact: true,
   });
 
@@ -51,6 +51,5 @@ Title: ${bookDetails.title}
 Author: ${bookDetails.author}
 Publisher: ${bookDetails.publisher}
 `;
-  writeOutput('book-details.txt',output)
-
+  writeOutput("book-details.txt", output);
 });

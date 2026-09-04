@@ -1,0 +1,4 @@
+
+Title: You Don't Know JS
+Author: Kyle Simpson
+Publisher: O'Reilly Media
