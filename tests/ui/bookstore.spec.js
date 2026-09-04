@@ -12,24 +12,31 @@ test("Login test", async ({ page }) => {
   const loginPage = new LoginPage(page);
   const bookStorePage = new BookStorePage(page);
 
+   // function for Save  book details
   function writeOutput(fileName, content) {
     const outPath = path.join(__dirname, "../../output", fileName);
     fs.writeFileSync(outPath, content, "utf8");
     return outPath
   }
 
+  // Navigate
   await loginPage.goto();
 
   await loginPage.login(USERNAME, PASSWORD);
 
+  // Validate username
   await expect(page.getByText(USERNAME)).toBeVisible();
-
+    
+  // Validate logout button
   await expect(loginPage.logoutButton).toBeVisible();
 
+
+  //Book Store
   await bookStorePage.openBookStore();
 
   await expect(page).toHaveURL(/books/);
 
+  // Search for book
   const bookName = "Learning JavaScript Design Patterns";
   await bookStorePage.searchBook(bookName);
 
@@ -38,8 +45,10 @@ test("Login test", async ({ page }) => {
     exact: true,
   });
 
+   // Validate search result
   await expect(bookLink).toBeVisible();
 
+  // Get book details
   const bookDetails = await bookStorePage.getBookDetails();
 
   console.log("Book Details:");
@@ -47,6 +56,7 @@ test("Login test", async ({ page }) => {
   console.log(`Author: ${bookDetails.author}`);
   console.log(`Publisher: ${bookDetails.publisher}`);
 
+   // Save details into file
   const output = `
 Title: ${bookDetails.title}
 Author: ${bookDetails.author}
@@ -54,6 +64,7 @@ Publisher: ${bookDetails.publisher}
 `;
   const outputFile = writeOutput("book-details.txt", output);
 
+   //Logout
   await loginPage.logout()
 
   await expect(page).toHaveURL(/login/)
