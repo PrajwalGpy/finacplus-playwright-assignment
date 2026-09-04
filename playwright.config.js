@@ -3,7 +3,6 @@ import { defineConfig, devices } from '@playwright/test';
 import dotenv from 'dotenv';
 import path from 'path';
 
-// Load dynamic environment file (.env or .env.<ENV>)
 const ENV = process.env.ENV || '';
 dotenv.config({ path: path.resolve(__dirname, ENV ? `.env.${ENV}` : '.env') });
 

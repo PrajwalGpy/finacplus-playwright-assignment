@@ -5,8 +5,6 @@ import { test, expect } from "@playwright/test";
 const fs = require("fs");
 const path = require("path");
 
-const USERNAME = "prajwalgp11";
-const PASSWORD = "Password@11";
 
 test("Login test", async ({ page }) => {
   const loginPage = new LoginPage(page);
@@ -22,10 +20,10 @@ test("Login test", async ({ page }) => {
   // Navigate
   await loginPage.goto();
 
-  await loginPage.login(USERNAME, PASSWORD);
+  await loginPage.login(process.env.USERNAME,process.env.PASSWORD);
 
   // Validate username
-  await expect(page.getByText(USERNAME)).toBeVisible();
+  await expect(page.getByText(process.env.USERNAME)).toBeVisible();
     
   // Validate logout button
   await expect(loginPage.logoutButton).toBeVisible();
