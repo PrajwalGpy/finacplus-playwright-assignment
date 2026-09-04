@@ -5,6 +5,12 @@ pipeline {
         CI = 'true'
         // Disable interactive prompts during browser install
         DEBIAN_FRONTEND = 'noninteractive'
+       
+        BASE_URL="https://demoqa.com"
+        API_URL="https://reqres.in"
+        USERNAME="prajwalgp11"
+        PASSWORD="Password@11"
+        REQRES_API_KEY = "free_user_3IrKfgNM0B5WbZ4KnTxug4Fhj8T"
     }
 
     options {
